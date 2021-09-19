@@ -1,0 +1,13 @@
+ul {
+    list-style-type: none;
+}
+#displayInfo{
+ position: relative;
+ left: 299px;
+ bottom: 120px;
+ font-size: 25px; 
+ background-color: white;
+}
+body{
+    background-color: burlywood;
+}
