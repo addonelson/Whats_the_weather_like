@@ -76,9 +76,12 @@ fetch(requestUrl)
           
           console.log(latitude);
           console.log(longitude);
+
+          var newUrlFront = "https://api.openweathermap.org/data/2.5/onecall?"
   
-          var requestUrl = urlFront.concat(urlLat, latitude, urlLon, longitude);
-  
+          var requestUrl = newUrlFront.concat(urlLat, latitude, urlLon, longitude, urlEnd);
+
+           
           console.log(data);
           console.log(data.name);
           console.log(data.weather[0].icon);
@@ -92,7 +95,9 @@ fetch(requestUrl)
         return response.json();
       })
       .then(function (data) {
-        
+        uvIndex.textContent = "UV Index:" + data.current.uvi;
+
+          displayInfoContainer.append(uvIndex);
         console.log(data); 
             
       });
