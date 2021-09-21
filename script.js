@@ -57,7 +57,7 @@ function display(theCity) {
       displayInfoContainer.textContent = "";
       var divStyle = document.createElement('div');
 
-      divStyle.setAttribute("class", "card bg-primary col-6-offset-3");
+      divStyle.setAttribute("class", "card bg-primary col-sm-offset-6");
       divStyle.setAttribute("style", "width:18rem height:40rem ");
 
 
