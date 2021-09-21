@@ -17,7 +17,6 @@ var foreCasted5 = $("5-day-forecast");
 
 
 var arrayName = JSON.parse(localStorage.getItem("name")) || [];
-console.log(arrayName);
 showHistory();
 
 fetch(requestUrl)
@@ -26,10 +25,7 @@ fetch(requestUrl)
   .then(function (response) {
     return response.json();
   })
-  .then(function (data) {
-
-    console.log(data);
-  });
+  .then(function (data) {});
 
 function display(theCity) {
 
@@ -63,7 +59,7 @@ function display(theCity) {
 
 
       var iconurl = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
-      
+
 
       cityName.textContent = data.name + " " + moment().format('L');
       weatherIcon.setAttribute("src", iconurl);
@@ -107,12 +103,10 @@ function display(theCity) {
             var mainTemp1 = document.createElement('p');
             var mainHumidity1 = document.createElement('p');
             var windSpeed1 = document.createElement('p');
-            var styleDiv = document.createElement('div')
+            var styleDiv = document.createElement('div');
 
-            styleDiv.setAttribute('class', "card bg-primary col-6-offset-3");
-            styleDiv.setAttribute("style", "width:9rem height:14rem");
-
-
+            styleDiv.setAttribute("class", "card"[index]);
+            
             cityName1.textContent = data.city.name + " " + (moment().add(duration).add([index], 'd').format('L'));
             weatherIcon1.setAttribute("src", iconurl);
             mainTemp1.textContent = "Tempature:" + " " + data.list[index].main.temp + "\xB0" + "F";
@@ -177,8 +171,7 @@ function display(theCity) {
             uvIndex.setAttribute("class", "bg-danger");
           }
 
-          console.log(data);
-
+          
         });
 
 
@@ -186,17 +179,11 @@ function display(theCity) {
 
 }
 
-
-
 function showHistory() {
   previousSearchEl.empty();
   for (let index = 0; index < arrayName.length; index++) {
-    previousSearchEl.append('<li class="cityName">' + arrayName[index] + '</li>');
+    previousSearchEl.append('<li class="cityName btn btn-outline-primary">' + arrayName[index] + '</li>');
   }
-
-  // $('.cityName').on('click', function () {
-  //   display($(this).text())
-  // })
 }
 
 function handleFormSubmit(event) {
@@ -208,15 +195,12 @@ function handleFormSubmit(event) {
   localStorage.setItem("name", JSON.stringify(arrayName));
   showHistory();
 
-
-
-
   // if there's nothing in the form entered, don't print to the page
   if (!cityName) {
     alert('No search item filled out in form!');
     return;
   }
-  // $('input[name="searchBox"]').val('');
+
   display(cityName);
 
 }
@@ -225,6 +209,7 @@ searchFormEl.on('submit', handleFormSubmit);
 
 previousSearchEl.on('click', ".cityName", function () {
   foreCasted.innerHTML = "";
+  searchFormEl.empty();
   console.log($(this).text());
   display($(this).text())
 })

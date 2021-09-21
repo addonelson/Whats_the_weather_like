@@ -4,7 +4,7 @@ ul {
 .card img{
     width: 35px;
     height: 35px;
-   }
+}
 #displayinfo{
     justify-content:center;
 }
@@ -20,4 +20,28 @@ ul {
     position: relative;
     left:100px;
     bottom: 100px;
+}
+div.c{
+    position: relative;
+    left: 129px;
+    bottom: 40px;
+    background-color: chocolate;
+}
+div.a{
+    position: relative;
+    left: 373px;
+    bottom: 250px;
+    background-color: chocolate;
+}
+div.r{
+    position: relative;
+    left: 615px;
+    bottom: 460px;
+    background-color: chocolate;
+}
+div.d{
+    position: relative;
+    left: 859px;
+    bottom: 670px;
+    background-color: chocolate;
 }
