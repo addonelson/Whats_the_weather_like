@@ -209,7 +209,6 @@ searchFormEl.on('submit', handleFormSubmit);
 
 previousSearchEl.on('click', ".cityName", function () {
   foreCasted.innerHTML = "";
-  searchFormEl.empty();
   console.log($(this).text());
   display($(this).text())
 })
