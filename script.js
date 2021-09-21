@@ -55,11 +55,15 @@ function display(theCity) {
       var longitude = JSON.stringify(data.coord.lon);
       var uvIndex = document.createElement('p');
       displayInfoContainer.textContent = "";
+      var divStyle = document.createElement('div');
 
-      
+      divStyle.setAttribute("class", "card bg-primary col-6-offset-3");
+      divStyle.setAttribute("style", "width:18rem height:40rem ");
+
+
 
       var iconurl = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
-
+      
 
       cityName.textContent = data.name + " " + moment().format('L');
       weatherIcon.setAttribute("src", iconurl);
@@ -67,11 +71,13 @@ function display(theCity) {
       mainHumidity.textContent = "Humidity:" + " " + data.main.humidity + "%";
       windSpeed.textContent = "Current Wind Speed:" + " " + data.wind.speed + "MPH";
 
-      displayInfoContainer.append(cityName);
-      displayInfoContainer.append(weatherIcon);
-      displayInfoContainer.append(mainTemp);
-      displayInfoContainer.append(mainHumidity);
-      displayInfoContainer.append(windSpeed);
+      divStyle.append(cityName);
+      divStyle.append(weatherIcon);
+      divStyle.append(mainTemp);
+      divStyle.append(mainHumidity);
+      divStyle.append(windSpeed);
+
+      displayInfoContainer.append(divStyle);
 
       var newUrlFront2 = "https://api.openweathermap.org/data/2.5/forecast?q="
       console.log(cityName);
@@ -89,9 +95,11 @@ function display(theCity) {
           console.log(data);
 
           var iconurl = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
-          
-          var duration = moment.duration({'days' : 1});
-          
+
+          var duration = moment.duration({
+            'days': 1
+          });
+
           for (let index = 0; index < 4; index++) {
 
             var cityName1 = document.createElement('p');
@@ -99,21 +107,29 @@ function display(theCity) {
             var mainTemp1 = document.createElement('p');
             var mainHumidity1 = document.createElement('p');
             var windSpeed1 = document.createElement('p');
-            
+            var styleDiv = document.createElement('div')
+
+            styleDiv.setAttribute('class', "card bg-primary col-6-offset-3");
+            styleDiv.setAttribute("style", "width:9rem height:14rem");
+
+
             cityName1.textContent = data.city.name + " " + (moment().add(duration).add([index], 'd').format('L'));
             weatherIcon1.setAttribute("src", iconurl);
             mainTemp1.textContent = "Tempature:" + " " + data.list[index].main.temp + "\xB0" + "F";
             mainHumidity1.textContent = "Humidity:" + " " + data.list[index].main.humidity + "%";
             windSpeed1.textContent = "Current Wind Speed:" + " " + data.list[index].wind.speed + "MPH";
 
-            foreCasted.append(cityName1);
-            foreCasted.append(weatherIcon1);
-            foreCasted.append(mainTemp1);
-            foreCasted.append(mainHumidity1);
-            foreCasted.append(windSpeed1);
-            console.log(moment().add([index], 'd'));
+            styleDiv.append(cityName1);
+            styleDiv.append(weatherIcon1);
+            styleDiv.append(mainTemp1);
+            styleDiv.append(mainHumidity1);
+            styleDiv.append(windSpeed1);
+
+
+            foreCasted.append(styleDiv);
+
           }
-          
+
         });
 
       latitude.textContent = data.coord.lat;
@@ -141,9 +157,11 @@ function display(theCity) {
           return response.json();
         })
         .then(function (data) {
+
+          divStyle.append(uvIndex);
           uvIndex.textContent = "UV Index:" + " " + data.current.uvi;
 
-          displayInfoContainer.append(uvIndex);
+          displayInfoContainer.append(divStyle);
 
           var uviColor1 = data.current.uvi;
 
