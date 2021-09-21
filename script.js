@@ -12,6 +12,9 @@ var previousSearchEl = $('#previousSearch');
 var searchFormEl = $('#search-form');
 var previousSpan = document.querySelector('#previousSearch');
 var displayInfoContainer = document.getElementById('displayInfo');
+var foreCasted = document.getElementById('5-day-forecast');
+var foreCasted5 = $("5-day-forecast");
+
 
 var arrayName = JSON.parse(localStorage.getItem("name")) || [];
 console.log(arrayName);
@@ -27,106 +30,169 @@ fetch(requestUrl)
 
     console.log(data);
   });
-  function display(cityName){
-    
-    var requestUrl = urlFront.concat(cityName, urlEnd)
 
-    // console.log(cityName);
-  
-    // console.log(requestUrl);
-    // This fetch statement takes the users input and returns the correct cities api 
-    fetch(requestUrl)
-  
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-  
-          var cityName = document.createElement('p');
-          var weatherIcon = document.createElement('img');
-          var mainTemp = document.createElement('p');
-          var mainHumidity = document.createElement('p');
-          var windSpeed = document.createElement('p');
-          var latitude = JSON.stringify(data.coord.lat);
-          var longitude = JSON.stringify(data.coord.lon);
-          var uvIndex = document.createElement('p');
-          displayInfoContainer.textContent="";
-  
-          var date = new Date();
-          var dateMonth = date.toLocaleDateString();
-          
-          var iconurl = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
-          
-  
-          cityName.textContent = data.name + " " + dateMonth;
-          weatherIcon.setAttribute("src", iconurl);
-          mainTemp.textContent = "Tempature:" + " " + data.main.temp + "\xB0" + "F";
-          mainHumidity.textContent = "Humidity:" + " " + data.main.humidity + "%";
-          windSpeed.textContent = "Current Wind Speed:" + " " + data.wind.speed + "MPH";
-  
-          displayInfoContainer.append(cityName);
-          displayInfoContainer.append(weatherIcon);
-          displayInfoContainer.append(mainTemp);
-          displayInfoContainer.append(mainHumidity);
-          displayInfoContainer.append(windSpeed);
-  
-          latitude.textContent = data.coord.lat;
-          longitude.textContent = data.coord.lon;
-  
-          
-          console.log(latitude);
-          console.log(longitude);
+function display(theCity) {
 
-          var newUrlFront = "https://api.openweathermap.org/data/2.5/onecall?"
-  
-          var requestUrl = newUrlFront.concat(urlLat, latitude, urlLon, longitude, urlEnd);
+  var requestUrl = urlFront.concat(theCity, urlEnd)
 
-           
+  // console.log(cityName);
+
+  // console.log(requestUrl);
+  // This fetch statement takes the users input and returns the correct cities api 
+  fetch(requestUrl)
+
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+
+      var cityName = document.createElement('p');
+      var weatherIcon = document.createElement('img');
+      var mainTemp = document.createElement('p');
+      var mainHumidity = document.createElement('p');
+      var windSpeed = document.createElement('p');
+      var latitude = JSON.stringify(data.coord.lat);
+      var longitude = JSON.stringify(data.coord.lon);
+      var uvIndex = document.createElement('p');
+      displayInfoContainer.textContent = "";
+
+      
+
+      var iconurl = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+
+
+      cityName.textContent = data.name + " " + moment().format('L');
+      weatherIcon.setAttribute("src", iconurl);
+      mainTemp.textContent = "Tempature:" + " " + data.main.temp + "\xB0" + "F";
+      mainHumidity.textContent = "Humidity:" + " " + data.main.humidity + "%";
+      windSpeed.textContent = "Current Wind Speed:" + " " + data.wind.speed + "MPH";
+
+      displayInfoContainer.append(cityName);
+      displayInfoContainer.append(weatherIcon);
+      displayInfoContainer.append(mainTemp);
+      displayInfoContainer.append(mainHumidity);
+      displayInfoContainer.append(windSpeed);
+
+      var newUrlFront2 = "https://api.openweathermap.org/data/2.5/forecast?q="
+      console.log(cityName);
+      console.log(typeof cityName);
+      var requestUrl = newUrlFront2.concat(theCity, urlEnd);
+      console.log(requestUrl);
+      fetch(requestUrl)
+
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+
+
           console.log(data);
-          console.log(data.name);
-          console.log(data.weather[0].icon);
-          console.log(data.main.temp);
-          console.log(data.main.humidity);
-          console.log(data.wind.speed);
-  
-          fetch(requestUrl)
-  
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        uvIndex.textContent = "UV Index:" + data.current.uvi;
+
+          var iconurl = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
+          
+          var duration = moment.duration({'days' : 1});
+          
+          for (let index = 0; index < 4; index++) {
+
+            var cityName1 = document.createElement('p');
+            var weatherIcon1 = document.createElement('img');
+            var mainTemp1 = document.createElement('p');
+            var mainHumidity1 = document.createElement('p');
+            var windSpeed1 = document.createElement('p');
+            
+            cityName1.textContent = data.city.name + " " + (moment().add(duration).add([index], 'd').format('L'));
+            weatherIcon1.setAttribute("src", iconurl);
+            mainTemp1.textContent = "Tempature:" + " " + data.list[index].main.temp + "\xB0" + "F";
+            mainHumidity1.textContent = "Humidity:" + " " + data.list[index].main.humidity + "%";
+            windSpeed1.textContent = "Current Wind Speed:" + " " + data.list[index].wind.speed + "MPH";
+
+            foreCasted.append(cityName1);
+            foreCasted.append(weatherIcon1);
+            foreCasted.append(mainTemp1);
+            foreCasted.append(mainHumidity1);
+            foreCasted.append(windSpeed1);
+            console.log(moment().add([index], 'd'));
+          }
+          
+        });
+
+      latitude.textContent = data.coord.lat;
+      longitude.textContent = data.coord.lon;
+
+
+      console.log(latitude);
+      console.log(longitude);
+
+      var newUrlFront = "https://api.openweathermap.org/data/2.5/onecall?"
+
+      var requestUrl = newUrlFront.concat(urlLat, latitude, urlLon, longitude, urlEnd);
+
+
+      console.log(data);
+      console.log(data.name);
+      console.log(data.weather[0].icon);
+      console.log(data.main.temp);
+      console.log(data.main.humidity);
+      console.log(data.wind.speed);
+
+      fetch(requestUrl)
+
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          uvIndex.textContent = "UV Index:" + " " + data.current.uvi;
 
           displayInfoContainer.append(uvIndex);
-        console.log(data); 
-            
-      });
-  
-  });
+
+          var uviColor1 = data.current.uvi;
+
+          if (uviColor1 < 2) {
+            uvIndex.setAttribute("class", "bg-success");
+          } else if (3 < uviColor1 < 5) {
+            uvIndex.setAttribute("class", "bg-warning");
+          } else if (6 < uviColor1 < 7) {
+            uvIndex.setAttribute("class", "bg-danger");
+          } else if (8 < uviColor1 < 10) {
+            uvIndex.setAttribute("class", "bg-danger");
+          } else if (uviColor1 > 10) {
+            uvIndex.setAttribute("class", "bg-danger");
+          }
+
+          console.log(data);
+
+        });
+
+
+    });
+
+}
+
+
+
+function showHistory() {
+  previousSearchEl.empty();
+  for (let index = 0; index < arrayName.length; index++) {
+    previousSearchEl.append('<li class="cityName">' + arrayName[index] + '</li>');
   }
 
-  function showHistory() {
-    previousSearchEl.empty();
-    for (let index = 0; index < arrayName.length; index++) {
-      previousSearchEl.append('<li class="cityName">' + arrayName[index] + '</li>');     
-    }
-    
-    $('.cityName').on('click', function(){
-    display($(this).text())
-    })
-  }
+  // $('.cityName').on('click', function () {
+  //   display($(this).text())
+  // })
+}
+
 function handleFormSubmit(event) {
   event.preventDefault();
 
-  
+
   var cityName = $('input[name="searchBox"]').val();
   arrayName.push(cityName);
   localStorage.setItem("name", JSON.stringify(arrayName));
   showHistory();
- 
 
-  
-  
+
+
+
   // if there's nothing in the form entered, don't print to the page
   if (!cityName) {
     alert('No search item filled out in form!');
@@ -138,3 +204,9 @@ function handleFormSubmit(event) {
 }
 
 searchFormEl.on('submit', handleFormSubmit);
+
+previousSearchEl.on('click', ".cityName", function () {
+  foreCasted.innerHTML = "";
+  console.log($(this).text());
+  display($(this).text())
+})
