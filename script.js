@@ -96,7 +96,7 @@ function display(theCity) {
             'days': 1
           });
 
-          for (let index = 0; index < 4; index++) {
+          for (let index = 0; index < 5; index++) {
 
             var cityName1 = document.createElement('p');
             var weatherIcon1 = document.createElement('img');
