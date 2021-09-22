@@ -53,19 +53,19 @@ function display(theCity) {
       displayInfoContainer.textContent = "";
       var divStyle = document.createElement('div');
 
-      divStyle.setAttribute("class", "card bg-primary col-sm-offset-6");
-      divStyle.setAttribute("style", "width:18rem height:40rem ");
+      divStyle.setAttribute("class", "card bg-secondary font-weight-bold col-sm-offset-6");
+      
 
 
 
       var iconurl = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
 
 
-      cityName.textContent = data.name + " " + moment().format('L');
+      cityName.innerHTML = data.name + "<span class= 'text-white'> " + moment().format('L') + "</span>";
       weatherIcon.setAttribute("src", iconurl);
-      mainTemp.textContent = "Tempature:" + " " + data.main.temp + "\xB0" + "F";
-      mainHumidity.textContent = "Humidity:" + " " + data.main.humidity + "%";
-      windSpeed.textContent = "Current Wind Speed:" + " " + data.wind.speed + "MPH";
+      mainTemp.innerHTML = "Tempature:" + " <span class= 'text-white'> " + data.main.temp + "\xB0" + "F</span>";
+      mainHumidity.innerHTML = "Humidity:" + "<span class= 'text-white'> " + data.main.humidity + "%</span>";
+      windSpeed.innerHTML = "Current Wind Speed:" + " <span class= 'text-white'> " + data.wind.speed + "MPH</span>";
 
       divStyle.append(cityName);
       divStyle.append(weatherIcon);
@@ -92,12 +92,13 @@ function display(theCity) {
 
           var iconurl = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
 
-          var duration = moment.duration({
-            'days': 1
-          });
+          
+          foreCasted.innerHTML= "";
 
-          for (let index = 0; index < 5; index++) {
+          for (let index = 3; index < data.list.length; index = index+8) {
 
+            console.log(data.list[index]);
+            
             var cityName1 = document.createElement('p');
             var weatherIcon1 = document.createElement('img');
             var mainTemp1 = document.createElement('p');
@@ -105,13 +106,15 @@ function display(theCity) {
             var windSpeed1 = document.createElement('p');
             var styleDiv = document.createElement('div');
 
-            styleDiv.setAttribute("class", "card"[index]);
-            
-            cityName1.textContent = data.city.name + " " + (moment().add(duration).add([index], 'd').format('L'));
+            styleDiv.setAttribute("class", "card bg-secondary font-weight-bold");
+           
+
+            var iconurl = "http://openweathermap.org/img/w/" + data.list[index].weather[0].icon + ".png";
+            cityName1.innerHTML = data.city.name + " <span class= 'text-white'> " + (moment(data.list[index].dt, "X").format('L')) + "</span>";
             weatherIcon1.setAttribute("src", iconurl);
-            mainTemp1.textContent = "Tempature:" + " " + data.list[index].main.temp + "\xB0" + "F";
-            mainHumidity1.textContent = "Humidity:" + " " + data.list[index].main.humidity + "%";
-            windSpeed1.textContent = "Current Wind Speed:" + " " + data.list[index].wind.speed + "MPH";
+            mainTemp1.innerHTML = "Tempature:" + "<span class= 'text-white'>" + data.list[index].main.temp + "\xB0" + "F </span>";
+            mainHumidity1.innerHTML = "Humidity:" + " <span class= 'text-white'>" + data.list[index].main.humidity + "% </span>";
+            windSpeed1.innerHTML = "Current Wind Speed:" + " <span class= 'text-white'> " + data.list[index].wind.speed + "MPH </span>";
 
             styleDiv.append(cityName1);
             styleDiv.append(weatherIcon1);
@@ -182,7 +185,7 @@ function display(theCity) {
 function showHistory() {
   previousSearchEl.empty();
   for (let index = 0; index < arrayName.length; index++) {
-    previousSearchEl.append('<li class="cityName btn btn-outline-primary">' + arrayName[index] + '</li>');
+    previousSearchEl.append('<li class="cityName list-group-item btn btn-outline-primary">' + arrayName[index] + '</li>');
   }
 }
 

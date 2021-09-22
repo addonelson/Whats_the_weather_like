@@ -5,7 +5,7 @@ ul {
     width: 35px;
     height: 35px;
 }
-#displayinfo{
+/* #displayinfo{
     justify-content:center;
 }
 .d-flex{
@@ -15,8 +15,8 @@ ul {
     align-items: center;
     bottom: 143px;
     right: 305px;
-}
-.row{
+} */
+/* .row{
     position: relative;
     left:100px;
     bottom: 100px;
@@ -50,4 +50,4 @@ div.undefined{
     left: 1106px;
     bottom: 880px;
     background-color: chocolate;
-}
+} */
