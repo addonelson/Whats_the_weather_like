@@ -10,8 +10,7 @@ Attached is a link to the deployed page for easy access. https://addonelson.gith
 ## Credits
 I want to make a special shout out to 2 individuals for their support on this project. First is my classmate Nicole Pingar who continuously went back and forth with me bouncing ideas which was a huge help!. Second, I want to thank my tutor Phil Loy who has been emensly helpful in all aspects of doing this project. He really takes the time to support me in understanding the real why behind the what. 
 ## Usage
-
-![alt text](assets\screencapture-file-C-Users-14804-OneDrive-Desktop-Penn-8-30-HW-AGD-Whats-the-weather-like-index-html-2021-09-21-20_59_33.png)
+![alt text](assets/weatherapi.png)
 To utilize the quiz follow the instructions below:
 1. In the search box search for a City. Press the search button
 2. Your weather data will now be displayed on the page. Including todays forecast and the next 5 days.  
